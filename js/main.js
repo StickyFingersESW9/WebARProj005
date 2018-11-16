@@ -26,8 +26,7 @@ var renderer  = new THREE.WebGLRenderer({
     alpha: true
 });
 renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-renderer.setSize( 1920, 1080 );
-//renderer.setSize( 2048, 2048 );
+renderer.setSize( window.innerWidth, window.innerHeight );
 //renderer.setPixelRatio( window.devicePixelRatio );
 renderer.domElement.style.position = 'absolute'
 renderer.domElement.style.top = '0px'
@@ -47,7 +46,11 @@ var scene = new THREE.Scene();
 // Create a camera
 //var camera = new THREE.Camera();
 //scene.add(camera);
-const camera = new THREE.PerspectiveCamera( 45, width / height );
+const fov = 45.0;
+const aspect = width / height;
+const nearClip = 0.1;
+const farClip = 1000.0;
+const camera = new THREE.PerspectiveCamera( fov, aspect, nearClip, farClip );
 camera.position.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +122,7 @@ onRenderFcts.push(function(delta){
 
     var stampArray = [];
     const count = 6;
-    const distance = 1000;
+    const distance = 300;
     for ( var i = 0 ; i < count ; ++i )
     {
         var stamp = CreatePolygon( new THREE.TextureLoader().load( stumpPath[i] ) );
