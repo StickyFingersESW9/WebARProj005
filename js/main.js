@@ -28,6 +28,7 @@ var renderer  = new THREE.WebGLRenderer({
 renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 //renderer.setSize( 1920, 1080 );
 renderer.setSize( 2048, 2048 );
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.domElement.style.position = 'absolute'
 renderer.domElement.style.top = '0px'
 renderer.domElement.style.left = '0px'
@@ -126,7 +127,7 @@ onRenderFcts.push(function(delta){
         var x = distance * Math.sin( angle / 180.0 * Math.PI );
         var z = distance * Math.cos( angle / 180.0 * Math.PI );
         stamp.position.set( x, 0, z );
-        stamp.scale.set( 0.5, 1, 1 );
+        //stamp.scale.set( 0.5, 1, 1 );
         //stamp.rotation.set( 0, angle, 0 );
         scene.add( stamp );
         stampArray.push( stamp );
