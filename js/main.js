@@ -10,6 +10,12 @@ else if ( ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 )
     isSmartPhone = true;
 }
 
+
+// サイズを指定
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+
 //////////////////////////////////////////////////////////////////////////////////
 //    Init
 //////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +26,7 @@ var renderer  = new THREE.WebGLRenderer({
     alpha: true
 });
 renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-renderer.setSize( 640, 480 );
+renderer.setSize( 1280, 720 );
 renderer.domElement.style.position = 'absolute'
 renderer.domElement.style.top = '0px'
 renderer.domElement.style.left = '0px'
@@ -37,8 +43,10 @@ var scene = new THREE.Scene();
 //////////////////////////////////////////////////////////////////////////////////
 
 // Create a camera
-var camera = new THREE.Camera();
-scene.add(camera);
+//var camera = new THREE.Camera();
+//scene.add(camera);
+const camera = new THREE.PerspectiveCamera( 45, width / height );
+camera.position.set( 0, 0, 0 );
 
 ////////////////////////////////////////////////////////////////////////////////
 //          handle arToolkitSource
@@ -93,7 +101,7 @@ mesh.position.y = 0.5
 scene.add( mesh );
 
 onRenderFcts.push(function(delta){
-    mesh.rotation.x += Math.PI*delta
+    //mesh.rotation.x += Math.PI*delta
 })
 
 
@@ -128,17 +136,19 @@ requestAnimationFrame(function animate(nowMsec){
     var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
     lastTimeMsec  = nowMsec;
     // call each update function
-        onRenderFcts.forEach(function(onRenderFct){
+    onRenderFcts.forEach(function(onRenderFct){
         onRenderFct(deltaMsec/1000, nowMsec/1000);
     })
 
     if ( isSmartPhone )
     {
+        //console.log( 'A=' + gcontrols );
         gcontrols.connect();
         gcontrols.update();
     }
     else
     {
+        console.log( 'B=' + controls );
         //box.rotation.y += 0.05 * Math.PI / 180;
         controls.update();
     }
