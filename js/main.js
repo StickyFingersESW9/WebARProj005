@@ -26,7 +26,7 @@ var renderer  = new THREE.WebGLRenderer({
     alpha: true
 });
 renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-renderer.setSize( 1280, 720 );
+renderer.setSize( 1920, 1080 );
 renderer.domElement.style.position = 'absolute'
 renderer.domElement.style.top = '0px'
 renderer.domElement.style.left = '0px'
@@ -83,6 +83,7 @@ function onResize(){
 //    add an object in the scene
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
 // add a torus knot 
 var geometry  = new THREE.CubeGeometry(1,1,1);
 var material  = new THREE.MeshNormalMaterial({
@@ -103,6 +104,31 @@ scene.add( mesh );
 onRenderFcts.push(function(delta){
     //mesh.rotation.x += Math.PI*delta
 })
+*/
+    const stumpPath = [
+        'imgs/baseball_dome.png',
+        'imgs/cheerleader_woman.png',
+        'imgs/enjin_sports_man.png',
+        'imgs/sport_volleyball.png',
+        'imgs/sports_ouen.png',
+        'imgs/sports_volleyball_man_atack.png',
+        'imgs/trophy_girl.png',
+    ];
+
+    var stampAttay = [];
+    const count = 6;
+    const distance = 1000;
+    for ( var i = 0 ; i < count ; ++i )
+    {
+        var stamp = CreatePolygon( new THREE.TextureLoader().load( stumpPath[i] ) );
+        var angle = i * 360 / count;
+        var x = distance * Math.cos( angle * (Math.PI / 180) );
+        var z = distance * Math.sin( angle * (Math.PI / 180) );
+        stamp.position.set( x, 0, z );
+        scene.add( stamp );
+        stampAttay.push( stamp );
+    }
+
 
 
 if( isSmartPhone )
@@ -148,8 +174,19 @@ requestAnimationFrame(function animate(nowMsec){
     }
     else
     {
-        console.log( 'B=' + controls );
+        //console.log( 'B=' + controls );
         //box.rotation.y += 0.05 * Math.PI / 180;
         controls.update();
     }
 })
+
+
+function CreatePolygon( texture )
+{
+    const width = 200;
+    const height = 200;
+    var planeGeometry = new THREE.PlaneGeometry( width, height, 0 );
+    var planeMaterial = new THREE.MeshBasicMaterial( { map: texture, overdraw: true, side:THREE.DoubleSide } );
+    var plane = new THREE.Mesh( planeGeometry, planeMaterial );
+    return plane;
+}
