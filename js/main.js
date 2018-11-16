@@ -115,7 +115,7 @@ onRenderFcts.push(function(delta){
         'imgs/trophy_girl.png',
     ];
 
-    var stampAttay = [];
+    var stampArray = [];
     const count = 6;
     const distance = 1000;
     for ( var i = 0 ; i < count ; ++i )
@@ -125,9 +125,9 @@ onRenderFcts.push(function(delta){
         var x = distance * Math.sin( angle / 180.0 * Math.PI );
         var z = distance * Math.cos( angle / 180.0 * Math.PI );
         stamp.position.set( x, 0, z );
-        stamp.rotation.set( 0, angle, 0 );
+        //stamp.rotation.set( 0, angle, 0 );
         scene.add( stamp );
-        stampAttay.push( stamp );
+        stampArray.push( stamp );
     }
 
 
@@ -178,6 +178,12 @@ requestAnimationFrame(function animate(nowMsec){
         //console.log( 'B=' + controls );
         //box.rotation.y += 0.05 * Math.PI / 180;
         controls.update();
+    }
+
+    for ( let val of stampArray )
+    {
+        // val.quaternion.copy(this.camera.quaternion); // こちらでも動く
+        val.rotation.setFromRotationMatrix( camera.matrix );
     }
 })
 
