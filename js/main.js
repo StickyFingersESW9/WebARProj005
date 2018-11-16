@@ -122,8 +122,8 @@ onRenderFcts.push(function(delta){
     {
         var stamp = CreatePolygon( new THREE.TextureLoader().load( stumpPath[i] ) );
         var angle = i * 360 / count;
-        var x = distance * Math.cos( angle * (Math.PI / 180) );
-        var z = distance * Math.sin( angle * (Math.PI / 180) );
+        var x = distance * Math.sin( angle / 180.0 * Math.PI );
+        var z = distance * Math.cos( angle / 180.0 * Math.PI );
         stamp.position.set( x, 0, z );
         scene.add( stamp );
         stampAttay.push( stamp );
