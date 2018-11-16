@@ -126,6 +126,7 @@ onRenderFcts.push(function(delta){
         var x = distance * Math.sin( angle / 180.0 * Math.PI );
         var z = distance * Math.cos( angle / 180.0 * Math.PI );
         stamp.position.set( x, 0, z );
+        stamp.scale.set( 0.5, 1, 1 );
         //stamp.rotation.set( 0, angle, 0 );
         scene.add( stamp );
         stampArray.push( stamp );
