@@ -141,7 +141,7 @@ for ( var i = 0 ; i < count ; ++i )
 
 var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
 var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( cubeGeometry, cubrMaterial );
+var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 scene.add( cube );
 cube.position.set( 0, 0, 50 );
 
