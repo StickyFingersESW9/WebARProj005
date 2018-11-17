@@ -48,7 +48,7 @@ var scene = new THREE.Scene();
 // Create a camera
 //var camera = new THREE.Camera();
 //scene.add(camera);
-const fov = 45.0;
+const fov = 60.0;
 const aspect = width / height;
 const nearClip = 0.1;
 const farClip = 1000.0;
@@ -82,7 +82,7 @@ window.addEventListener('resize', function(){
 })
 function onResize(){
     arToolkitSource.onResize();
-    arToolkitSource.copySizeTo(renderer.domElement);
+    //arToolkitSource.copySizeTo(renderer.domElement);
 }
 
 
@@ -140,7 +140,10 @@ for ( var i = 0 ; i < count ; ++i )
 
 
 var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
-var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var params = { color: 0x0000ff };	// blue
+//var params = { color: 0x00ff00 };	// green
+//var params = { color: 0xff0000 };	// red
+var cubeMaterial = new THREE.MeshBasicMaterial( params );
 var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 scene.add( cube );
 cube.position.set( 0, 0, 50 );
