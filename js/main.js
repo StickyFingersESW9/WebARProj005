@@ -33,6 +33,8 @@ renderer.domElement.style.top = '0px'
 renderer.domElement.style.left = '0px'
 document.body.appendChild( renderer.domElement );
 
+//window.addEventListener( 'resize', onWindowResize, false );
+
 // array of functions fr the rendering loop
 var onRenderFcts= [];
 
@@ -110,31 +112,38 @@ onRenderFcts.push(function(delta){
     //mesh.rotation.x += Math.PI*delta
 })
 */
-    const stumpPath = [
-        'imgs/baseball_dome.png',
-        'imgs/cheerleader_woman.png',
-        'imgs/enjin_sports_man.png',
-        'imgs/sport_volleyball.png',
-        'imgs/sports_ouen.png',
-        'imgs/sports_volleyball_man_atack.png',
-        'imgs/trophy_girl.png',
-    ];
+const stumpPath = [
+    'imgs/baseball_dome.png',
+    'imgs/cheerleader_woman.png',
+    'imgs/enjin_sports_man.png',
+    'imgs/sport_volleyball.png',
+    'imgs/sports_ouen.png',
+    'imgs/sports_volleyball_man_atack.png',
+    'imgs/trophy_girl.png',
+];
 
-    var stampArray = [];
-    const count = 6;
-    const distance = 300;
-    for ( var i = 0 ; i < count ; ++i )
-    {
-        var stamp = CreatePolygon( new THREE.TextureLoader().load( stumpPath[i] ) );
-        var angle = i * 360 / count;
-        var x = distance * Math.sin( angle / 180.0 * Math.PI );
-        var z = distance * Math.cos( angle / 180.0 * Math.PI );
-        stamp.position.set( x, 0, z );
-        //stamp.scale.set( 0.5, 1, 1 );
-        //stamp.rotation.set( 0, angle, 0 );
-        scene.add( stamp );
-        stampArray.push( stamp );
-    }
+var stampArray = [];
+const count = 6;
+const distance = 300;
+for ( var i = 0 ; i < count ; ++i )
+{
+    var stamp = CreatePolygon( new THREE.TextureLoader().load( stumpPath[i] ) );
+    var angle = i * 360 / count;
+    var x = distance * Math.sin( angle / 180.0 * Math.PI );
+    var z = distance * Math.cos( angle / 180.0 * Math.PI );
+    stamp.position.set( x, 0, z );
+    //stamp.scale.set( 0.5, 1, 1 );
+    //stamp.rotation.set( 0, angle, 0 );
+    scene.add( stamp );
+    stampArray.push( stamp );
+}
+
+
+var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+var cubeMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var cube = new THREE.Mesh( cubeGeometry, cubrMaterial );
+scene.add( cube );
+cube.position.set( 0, 0, 50 );
 
 
 
@@ -194,10 +203,17 @@ requestAnimationFrame(function animate(nowMsec){
 })
 
 
+function onWindowResize()
+{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
 function CreatePolygon( texture )
 {
-    const width = 200;
-    const height = 200;
+    const width = 100;
+    const height = 100;
     var planeGeometry = new THREE.PlaneGeometry( width, height, 0 );
     var planeMaterial = new THREE.MeshBasicMaterial( { map: texture, overdraw: true, side:THREE.DoubleSide } );
     var plane = new THREE.Mesh( planeGeometry, planeMaterial );
